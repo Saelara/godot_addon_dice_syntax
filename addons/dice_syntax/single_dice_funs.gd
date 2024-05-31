@@ -317,10 +317,10 @@ static func base_rule_roller(rolling_rules:Dictionary,rng:RandomNumberGenerator 
 		out['drop'] = drop
 		
 	if rolling_rules.drop_keep_specific.size()>0 and rolling_rules.drop_specific:
-		out['drop'].append(dice.filter(func(x):return x in rolling_rules.drop_keep_specific))
+		out['drop'].append_array(dice.filter(func(x):return x in rolling_rules.drop_keep_specific))
 		dice = dice.filter(func(x):return not x in rolling_rules.drop_keep_specific)
 	elif rolling_rules.drop_keep_specific.size()>0 and not rolling_rules.drop_specific:
-		out['drop'].append(dice.filter(func(x):return not x in rolling_rules.drop_keep_specific))
+		out['drop'].append_array(dice.filter(func(x):return not x in rolling_rules.drop_keep_specific))
 		dice = dice.filter(func(x):return x in rolling_rules.drop_keep_specific)
 	
 	out['dice'] = dice
@@ -328,7 +328,7 @@ static func base_rule_roller(rolling_rules:Dictionary,rng:RandomNumberGenerator 
 	if rolling_rules.success.size()>0 or rolling_rules.fail.size()>0:
 		var success = dice.filter(func(x):return x in rolling_rules.success)
 		var fail = dice.filter(func(x):return x in rolling_rules.fail)
-		out['result'] = success.size() - fail.size()
+		out['result'] = float(success.size() - fail.size())
 	else:
 		out['result'] = al.sum(dice)
 	
