@@ -71,6 +71,9 @@ func test_dice_mean():
 	
 	m_roll = mean_tester("1d2s2f1")
 	assert_between(m_roll,-0.1,.1,'success fail')
+	
+	m_roll = mean_tester("1d2!/!3")
+	assert_between(m_roll,2.6,2.7,'success fail')
 
 
 func test_probs():
@@ -90,3 +93,9 @@ func test_probs():
 	
 	probs = dice_syntax.dice_probs('1d2s2f1')
 	assert_true(dice_syntax.expected_value(probs) == 0)
+	
+	probs = dice_syntax.dice_probs('1d2!/!3',10)
+	assert_true(dice_syntax.expected_value(probs) == 2.625)
+	
+	probs = dice_syntax.dice_probs('1d2!/!10',10)
+	assert_true(dice_syntax.expected_value(probs) > 2.9)
