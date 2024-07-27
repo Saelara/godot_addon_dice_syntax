@@ -53,7 +53,7 @@ static func merge_probs_keep_dice(prob1:Dictionary, prob2:Dictionary, sort:bool 
 	return out
 
 # if element exists in dictionary, add to the existing value, if not create element
-static func add_to_dict(dict:Dictionary,key,value):
+static func add_to_dict(dict:Dictionary,key,value)->void:
 	if dict.has(key):
 		dict[key] += value
 	else:
@@ -96,7 +96,7 @@ static func collapse_probs(probs:Dictionary, array_keys:bool = true)-> Dictionar
 
 # add error information to the output if something goes wrong.
 # dictionaries are passed by reference
-static func dice_error(condition:bool,message:String,rolling_rules:Dictionary):
+static func dice_error(condition:bool,message:String,rolling_rules:Dictionary)->void:
 	if(!condition):
 		push_error(message)
 		rolling_rules['error'] = true
